@@ -3,7 +3,7 @@ Contributors: orensol
 Tags: vanityvid, video, avatar, profile pic
 Requires at least: 2.8.4
 Tested up to: 3.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 Vanityvid turns your avatar into a video! 
 
@@ -44,6 +44,9 @@ the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1
 3. When you click play, the video shows up!
 
 == Changelog ==
+
+= 1.0.4 =
+* Allowing "vanityvid" img tag attribute in kses and tinymce, enables to put vanityvid manually inside post content. 
 
 = 1.0.3 =
 * Added screenshots.

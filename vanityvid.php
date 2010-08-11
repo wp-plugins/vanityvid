@@ -3,7 +3,7 @@
 Plugin Name: Vanityvid
 Plugin URI: http://vanityvid.com/info/wordpress-plugin
 Description: Enable Vanityvid on your Wordpress blog! Turn your profile pic and your readers profile pics into Video!
-Version: 1.0.3
+Version: 1.0.4
 Author: Vanityvid
 Author URI: http://vanityvid.com
 License: GPL2
@@ -100,6 +100,38 @@ add_filter('get_avatar', 'vanityvid_show', 10, 5);
  * 
  */
 
+/**
+ * Makes sure kses can receive "vanityvid" attribute for img tag
+ *
+ * Added as a filter to 'edit_allowedposttags'
+ * 
+ * @return array allowedposttags with vanityvid attribute allowed
+ */
+function vanityvid_kses($tags)
+{
+	$tags['img']['vanityvid'] = array();
+	return $tags;
+}
+add_filter('edit_allowedposttags','vanityvid_kses');
+
+/**
+ * Makes sure tinymce can receive "vanityvid" attribute for img tag
+ *
+ * Added as a filter to 'tiny_mce_before_init'
+ * 
+ * @return array initArray with vanityvid attribute allowed in extended_valid_elements
+ */
+function vanityvid_tinymce($initArray)
+{
+	$vanityvidArray = array ('extended_valid_elements' => 'img[align<bottom?left?middle?right?top|alt|border|class|dir<ltr?rtl|height|hspace|id|ismap<ismap|lang|longdesc|name|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|src|style|title|usemap|vspace|width|vanityvid]');
+	if ($initArray['extended_valid_elements'])
+		$initArray['extended_valid_elements'] = $initArray['extended_valid_elements'] . "," . $vanityvidArray['extended_valid_elements'];
+	else
+		$initArray['extended_valid_elements'] = $vanityvidArray['extended_valid_elements']; 
+	
+	return $initArray;
+}
+add_filter('tiny_mce_before_init','vanityvid_tinymce');
 
 /*
  * 
